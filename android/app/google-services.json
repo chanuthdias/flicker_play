@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "13180334911",
+    "project_id": "flicker-play",
+    "storage_bucket": "flicker-play.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:13180334911:android:dbacaaa1a127cc90e8198a",
+        "android_client_info": {
+          "package_name": "com.example.flicker_play"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6-0mPIndGhvDEXI9KP4bo5gS6nxZyQ_c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
