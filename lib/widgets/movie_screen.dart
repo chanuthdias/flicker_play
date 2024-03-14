@@ -1,5 +1,3 @@
-import 'package:flicker_play/models/tv_sereies.dart';
-import 'package:flicker_play/widgets/tv_card.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -8,24 +6,21 @@ import '../services/api_services.dart';
 import '../utills/end_points.dart';
 import 'movie_card.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class MovieScreen extends StatefulWidget {
+  const MovieScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<MovieScreen> createState() => _MovieScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _MovieScreenState extends State<MovieScreen> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            "Now Playing..",
-            style: TextStyle(fontSize: 22),
-          ),
+          const Text("Now Playing.."),
           FutureBuilder(
               future: ApiServices().get(apiEndPoint: EndPoints.nowPlaying),
               builder: (context, snapshot) {
@@ -64,52 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 );
               }),
-          const Text(
-            "Airing Today.....",
-            style: TextStyle(fontSize: 22),
-          ),
-          FutureBuilder(
-              future: ApiServices().get(apiEndPoint: EndPoints.airToday),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  TvSeries tvseries = TvSeries.fromJson(snapshot.data!);
-                  return SizedBox(
-                    height: 280,
-                    width: 500,
-                    child: ListView.builder(
-                        itemCount: tvseries.results!.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (BuildContext context, int index) {
-                          return TvCard(tv: tvseries.results![index]);
-                        }),
-                  );
-                }
-                return SizedBox(
-                  height: 200,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 5,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Shimmer.fromColors(
-                          baseColor: Colors.grey[500]!,
-                          highlightColor: Colors.grey[100]!,
-                          child: Container(
-                            width: 200,
-                            height: 200,
-                            color: Colors.white,
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                );
-              }),
-          const Text(
-            "Top Rated..",
-            style: TextStyle(fontSize: 22),
-          ),
+          const Text("Top Rated.."),
           FutureBuilder(
               future: ApiServices().get(apiEndPoint: EndPoints.topRated),
               builder: (context, snapshot) {
@@ -148,10 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 );
               }),
-          const Text(
-            "Popular..",
-            style: TextStyle(fontSize: 22),
-          ),
+          const Text("Popular.."),
           FutureBuilder(
               future: ApiServices().get(apiEndPoint: EndPoints.popular),
               builder: (context, snapshot) {

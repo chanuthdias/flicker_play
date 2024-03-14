@@ -1,69 +1,25 @@
-import 'package:flicker_play/models/tv_sereies.dart';
 import 'package:flicker_play/widgets/tv_card.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../models/movie.dart';
+import '../models/tv_sereies.dart';
 import '../services/api_services.dart';
 import '../utills/end_points.dart';
-import 'movie_card.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class TVScreen extends StatefulWidget {
+  const TVScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<TVScreen> createState() => _TVScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _TVScreenState extends State<TVScreen> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            "Now Playing..",
-            style: TextStyle(fontSize: 22),
-          ),
-          FutureBuilder(
-              future: ApiServices().get(apiEndPoint: EndPoints.nowPlaying),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  Movie movie = Movie.fromJson(snapshot.data!);
-                  return SizedBox(
-                    height: 280,
-                    width: 500,
-                    child: ListView.builder(
-                        itemCount: movie.results!.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (BuildContext context, int index) {
-                          return MovieCard(movie: movie.results![index]);
-                        }),
-                  );
-                }
-                return SizedBox(
-                  height: 200,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 5,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Shimmer.fromColors(
-                          baseColor: Colors.grey[500]!,
-                          highlightColor: Colors.grey[100]!,
-                          child: Container(
-                            width: 200,
-                            height: 200,
-                            color: Colors.white,
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                );
-              }),
           const Text(
             "Airing Today.....",
             style: TextStyle(fontSize: 22),
@@ -107,22 +63,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               }),
           const Text(
-            "Top Rated..",
+            "Popular Tv Sereies.....",
             style: TextStyle(fontSize: 22),
           ),
           FutureBuilder(
-              future: ApiServices().get(apiEndPoint: EndPoints.topRated),
+              future: ApiServices().get(apiEndPoint: EndPoints.popularTv),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  Movie movie = Movie.fromJson(snapshot.data!);
+                  TvSeries tvseries = TvSeries.fromJson(snapshot.data!);
                   return SizedBox(
                     height: 280,
                     width: 500,
                     child: ListView.builder(
-                        itemCount: movie.results!.length,
+                        itemCount: tvseries.results!.length,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (BuildContext context, int index) {
-                          return MovieCard(movie: movie.results![index]);
+                          return TvCard(tv: tvseries.results![index]);
                         }),
                   );
                 }
@@ -149,22 +105,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               }),
           const Text(
-            "Popular..",
+            "Top Rated Tv Sereies.....",
             style: TextStyle(fontSize: 22),
           ),
           FutureBuilder(
-              future: ApiServices().get(apiEndPoint: EndPoints.popular),
+              future: ApiServices().get(apiEndPoint: EndPoints.topRatedTv),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  Movie movie = Movie.fromJson(snapshot.data!);
+                  TvSeries tvseries = TvSeries.fromJson(snapshot.data!);
                   return SizedBox(
                     height: 280,
                     width: 500,
                     child: ListView.builder(
-                        itemCount: movie.results!.length,
+                        itemCount: tvseries.results!.length,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (BuildContext context, int index) {
-                          return MovieCard(movie: movie.results![index]);
+                          return TvCard(tv: tvseries.results![index]);
                         }),
                   );
                 }
@@ -189,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                   ),
                 );
-              })
+              }),
         ],
       ),
     );

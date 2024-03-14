@@ -3,10 +3,12 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flicker_play/pages/main_page.dart';
+
 import 'package:flutter/material.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   Platform.isAndroid
       ? await Firebase.initializeApp(
           options: const FirebaseOptions(

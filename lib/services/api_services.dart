@@ -1,8 +1,9 @@
 import 'dart:convert';
 
+import 'package:flicker_play/constants.dart';
 import 'package:http/http.dart' as http;
 
-String baseUrl = "https://api.themoviedb.org/3";
+String baseUrl = Constants.baseUrl;
 
 class ApiServices {
   var client = http.Client();
