@@ -38,11 +38,14 @@ class _MovieCardState extends State<MovieCard> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.network(
-                lBaseImgPath + movieItem.posterPath!,
-                width: 200,
-                height: 200,
-                fit: BoxFit.cover,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.network(
+                  lBaseImgPath + movieItem.posterPath!,
+                  width: 200,
+                  height: 200,
+                  fit: BoxFit.cover,
+                ),
               ),
               Text(movieItem.originalTitle!,
                   style: const TextStyle(color: Colors.white)),

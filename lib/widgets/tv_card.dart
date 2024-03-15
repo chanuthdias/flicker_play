@@ -37,11 +37,14 @@ class _TvCardState extends State<TvCard> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.network(
-                lBaseImgPath + tvItem.posterPath!,
-                width: 200,
-                height: 200,
-                fit: BoxFit.cover,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.network(
+                  lBaseImgPath + tvItem.posterPath!,
+                  width: 200,
+                  height: 200,
+                  fit: BoxFit.cover,
+                ),
               ),
               Text(tvItem.originalName!,
                   style: const TextStyle(color: Colors.white)),
