@@ -1,4 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/user_provider.dart';
 
 class FireService {
   final movies = FirebaseFirestore.instance.collection('abcd@gmail.com');
@@ -37,5 +41,22 @@ class FireService {
         .set({'firstName': firstName, 'lastName': lastName})
         .then((value) => print("User Added"))
         .catchError((error) => print("Failed to add movie: $error"));
+  }
+
+  getUserDetails(BuildContext context) {
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc('zxcv@gmail.com')
+        .get()
+        .then((querySnapshot) {
+      print(querySnapshot['firstName']);
+      print(querySnapshot['lastName']);
+
+      context.read<UserProvider>().updateUserData(
+          firstName: querySnapshot['firstName'],
+          lastName: querySnapshot['lastName']);
+    }).catchError((error) {
+      print("Failed to add movie: $error");
+    });
   }
 }

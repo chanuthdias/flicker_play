@@ -43,13 +43,17 @@ class _TvCardState extends State<TvCard> {
                 height: 200,
                 fit: BoxFit.cover,
               ),
-              Text(tvItem.originalName!),
+              Text(tvItem.originalName!,
+                  style: const TextStyle(color: Colors.white)),
               Padding(
                 padding: const EdgeInsets.only(right: 10.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(tvItem.voteAverage.toString()),
+                    Text(
+                      tvItem.voteAverage.toString(),
+                      style: const TextStyle(color: Colors.white),
+                    ),
                     const Icon(Icons.favorite)
                   ],
                 ),

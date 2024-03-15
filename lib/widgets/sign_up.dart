@@ -19,6 +19,8 @@ class _SignUpState extends State<SignUp> {
   final cPasswordField = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12.0),

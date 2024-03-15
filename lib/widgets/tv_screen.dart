@@ -22,7 +22,7 @@ class _TVScreenState extends State<TVScreen> {
         children: [
           const Text(
             "Airing Today.....",
-            style: TextStyle(fontSize: 22),
+            style: TextStyle(fontSize: 22, color: Colors.white),
           ),
           FutureBuilder(
               future: ApiServices().get(apiEndPoint: EndPoints.airToday),
@@ -64,7 +64,7 @@ class _TVScreenState extends State<TVScreen> {
               }),
           const Text(
             "Popular Tv Sereies.....",
-            style: TextStyle(fontSize: 22),
+            style: TextStyle(fontSize: 22, color: Colors.white),
           ),
           FutureBuilder(
               future: ApiServices().get(apiEndPoint: EndPoints.popularTv),
@@ -106,7 +106,7 @@ class _TVScreenState extends State<TVScreen> {
               }),
           const Text(
             "Top Rated Tv Sereies.....",
-            style: TextStyle(fontSize: 22),
+            style: TextStyle(fontSize: 22, color: Colors.white),
           ),
           FutureBuilder(
               future: ApiServices().get(apiEndPoint: EndPoints.topRatedTv),

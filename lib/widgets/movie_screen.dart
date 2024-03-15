@@ -20,7 +20,10 @@ class _MovieScreenState extends State<MovieScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text("Now Playing.."),
+          const Text(
+            "Now Playing..",
+            style: TextStyle(fontSize: 22, color: Colors.white),
+          ),
           FutureBuilder(
               future: ApiServices().get(apiEndPoint: EndPoints.nowPlaying),
               builder: (context, snapshot) {
@@ -59,7 +62,10 @@ class _MovieScreenState extends State<MovieScreen> {
                   ),
                 );
               }),
-          const Text("Top Rated.."),
+          const Text(
+            "Top Rated..",
+            style: TextStyle(fontSize: 22, color: Colors.white),
+          ),
           FutureBuilder(
               future: ApiServices().get(apiEndPoint: EndPoints.topRated),
               builder: (context, snapshot) {
@@ -98,7 +104,10 @@ class _MovieScreenState extends State<MovieScreen> {
                   ),
                 );
               }),
-          const Text("Popular.."),
+          const Text(
+            "Popular..",
+            style: TextStyle(fontSize: 22, color: Colors.white),
+          ),
           FutureBuilder(
               future: ApiServices().get(apiEndPoint: EndPoints.popular),
               builder: (context, snapshot) {

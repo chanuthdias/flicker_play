@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flicker_play/providers/user_provider.dart';
 import 'package:flicker_play/services/fire_base_services.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../widgets/rich_button.dart';
@@ -22,6 +24,7 @@ class _UserEditState extends State<UserEdit> {
   File? _selectedImage;
   String? imagePath;
   String? email;
+  bool canEdit = false;
 
   late SharedPreferences preferences;
 
@@ -31,6 +34,8 @@ class _UserEditState extends State<UserEdit> {
     super.initState();
     setState(() {
       email = FirebaseAuth.instance.currentUser!.email;
+      firstName.text = context.read<UserProvider>().firstName!;
+      lastName.text = context.read<UserProvider>().lastName!;
     });
     init();
   }
@@ -41,6 +46,7 @@ class _UserEditState extends State<UserEdit> {
     if (imagePath == null) return;
     setState(() {
       this.imagePath = imagePath;
+      context.read<UserProvider>().setImagePath(imgPath: imagePath);
     });
   }
 
@@ -53,6 +59,29 @@ class _UserEditState extends State<UserEdit> {
           key: userEditFormKey,
           child: Column(
             children: [
+              const SizedBox(
+                height: 30,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  InkWell(
+                      onTap: () {
+                        setState(() {
+                          canEdit = !canEdit;
+                        });
+                      },
+                      child: canEdit
+                          ? const Icon(Icons.edit)
+                          : const Icon(Icons.stop)),
+                  const SizedBox(width: 30),
+                  InkWell(
+                      onTap: () async {
+                        await FirebaseAuth.instance.signOut();
+                      },
+                      child: const Icon(Icons.logout))
+                ],
+              ),
               const SizedBox(
                 height: 60,
               ),
@@ -102,6 +131,7 @@ class _UserEditState extends State<UserEdit> {
                 height: 30,
               ),
               TextFormField(
+                readOnly: !canEdit,
                 controller: firstName,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
@@ -123,6 +153,7 @@ class _UserEditState extends State<UserEdit> {
                 height: 30,
               ),
               TextFormField(
+                readOnly: !canEdit,
                 controller: lastName,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
@@ -164,6 +195,7 @@ class _UserEditState extends State<UserEdit> {
     setState(() {
       _selectedImage = File(returnedImage.path);
       preferences.setString('userImage', returnedImage.path);
+      context.read<UserProvider>().setImagePath(imgPath: returnedImage.path);
     });
   }
 }

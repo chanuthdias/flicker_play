@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flicker_play/pages/main_page.dart';
+import 'package:flicker_play/providers/user_provider.dart';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,15 +30,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flicker Play',
-      theme: ThemeData(
-        //colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => UserProvider(),
+        )
+      ],
+      child: MaterialApp(
+        title: 'Flicker Play',
+        theme: ThemeData(
+          //colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: const MainPage(),
+        debugShowCheckedModeBanner: false,
+        navigatorKey: navigatorKey,
       ),
-      home: const MainPage(),
-      debugShowCheckedModeBanner: false,
-      navigatorKey: navigatorKey,
     );
   }
 }

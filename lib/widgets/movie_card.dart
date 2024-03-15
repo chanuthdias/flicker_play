@@ -44,15 +44,15 @@ class _MovieCardState extends State<MovieCard> {
                 height: 200,
                 fit: BoxFit.cover,
               ),
-              Text(
-                movieItem.originalTitle!,
-              ),
+              Text(movieItem.originalTitle!,
+                  style: const TextStyle(color: Colors.white)),
               Padding(
                 padding: const EdgeInsets.only(right: 10.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(movieItem.voteAverage.toString()),
+                    Text(movieItem.voteAverage.toString(),
+                        style: const TextStyle(color: Colors.white)),
                     InkWell(
                         onTap: () {
                           FireService().addFavouriteMovie(

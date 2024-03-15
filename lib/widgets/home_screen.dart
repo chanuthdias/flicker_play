@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           const Text(
             "Now Playing..",
-            style: TextStyle(fontSize: 22),
+            style: TextStyle(fontSize: 22, color: Colors.white),
           ),
           FutureBuilder(
               future: ApiServices().get(apiEndPoint: EndPoints.nowPlaying),
@@ -66,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
               }),
           const Text(
             "Airing Today.....",
-            style: TextStyle(fontSize: 22),
+            style: TextStyle(fontSize: 22, color: Colors.white),
           ),
           FutureBuilder(
               future: ApiServices().get(apiEndPoint: EndPoints.airToday),
@@ -108,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
               }),
           const Text(
             "Top Rated..",
-            style: TextStyle(fontSize: 22),
+            style: TextStyle(fontSize: 22, color: Colors.white),
           ),
           FutureBuilder(
               future: ApiServices().get(apiEndPoint: EndPoints.topRated),
@@ -150,7 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
               }),
           const Text(
             "Popular..",
-            style: TextStyle(fontSize: 22),
+            style: TextStyle(fontSize: 22, color: Colors.white),
           ),
           FutureBuilder(
               future: ApiServices().get(apiEndPoint: EndPoints.popular),
