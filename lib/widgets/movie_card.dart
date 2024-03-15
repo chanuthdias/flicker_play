@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 
 class MovieCard extends StatefulWidget {
   final Results movie;
-
-  const MovieCard({super.key, required this.movie});
+  final bool? isFavourite;
+  const MovieCard({super.key, required this.movie, this.isFavourite});
 
   @override
   State<MovieCard> createState() => _MovieCardState();
@@ -66,7 +66,9 @@ class _MovieCardState extends State<MovieCard> {
                             voteCount: movieItem.voteCount!,
                           );
                         },
-                        child: const Icon(Icons.favorite))
+                        child: widget.isFavourite == null
+                            ? const Icon(Icons.favorite)
+                            : Container())
                   ],
                 ),
               )

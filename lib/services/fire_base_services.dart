@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FireService {
-  CollectionReference movies = FirebaseFirestore.instance.collection('Movies');
+  final movies = FirebaseFirestore.instance.collection('abcd@gmail.com');
 
   Future<void> addFavouriteMovie(
       {required String originalTitle,
@@ -13,8 +13,7 @@ class FireService {
       required double voteAverage,
       required int voteCount}) {
     return movies
-        .doc('test1')
-        .set({
+        .add({
           'originalTitle': originalTitle,
           'overview': overview,
           'popularity': popularity,
@@ -25,6 +24,18 @@ class FireService {
           'voteCount': voteCount
         })
         .then((value) => print("Movie Added"))
+        .catchError((error) => print("Failed to add movie: $error"));
+  }
+
+  Future<void> addUserDetails(
+      {required String firstName,
+      required String lastName,
+      required String email}) {
+    final users = FirebaseFirestore.instance.collection('users');
+    return users
+        .doc(email)
+        .set({'firstName': firstName, 'lastName': lastName})
+        .then((value) => print("User Added"))
         .catchError((error) => print("Failed to add movie: $error"));
   }
 }

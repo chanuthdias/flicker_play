@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flicker_play/models/movie.dart';
+import 'package:flicker_play/widgets/movie_card.dart';
 import 'package:flutter/material.dart';
 
 class MyListScreen extends StatefulWidget {
@@ -9,32 +11,37 @@ class MyListScreen extends StatefulWidget {
 }
 
 class _MyListScreenState extends State<MyListScreen> {
-  final String documentId = "vUsHfXdcq9iKsYAJz7vq";
-
   @override
   Widget build(BuildContext context) {
-    CollectionReference movies =
-        FirebaseFirestore.instance.collection('Movies');
-
-    return FutureBuilder<DocumentSnapshot>(
-      future: movies.doc(documentId).get(),
-      builder:
-          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+    final Stream<QuerySnapshot> _usersStream =
+        FirebaseFirestore.instance.collection('abcd@gmail.com').snapshots();
+    return StreamBuilder<QuerySnapshot>(
+      stream: _usersStream,
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
-          return Text("Something went wrong");
+          return const Text('Something went wrong');
         }
 
-        if (snapshot.hasData && !snapshot.data!.exists) {
-          return Text("Document does not exist");
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Text("Loading");
         }
 
-        if (snapshot.connectionState == ConnectionState.done) {
-          Map<String, dynamic> data =
-              snapshot.data!.data() as Map<String, dynamic>;
-          return Text("Title: ${data['title']}");
-        }
-
-        return Text("loading");
+        return ListView(
+          children: snapshot.data!.docs.map((DocumentSnapshot document) {
+            Map<String, dynamic> data =
+                document.data()! as Map<String, dynamic>;
+            return MovieCard(
+              isFavourite: false,
+              movie: Results(
+                  originalTitle: data['originalTitle'],
+                  overview: data['overview'],
+                  posterPath: data['posterPath'],
+                  releaseDate: data['releaseDate'],
+                  voteAverage: data['voteAverage'],
+                  voteCount: data['voteCount']),
+            );
+          }).toList(),
+        );
       },
     );
   }
